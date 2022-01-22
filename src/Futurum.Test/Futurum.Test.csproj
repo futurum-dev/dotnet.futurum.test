@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>Futurum.Test</PackageId>
+        <PackageIcon>dotnet-logo.png</PackageIcon>
+        <Description>Small dotnet testing library, allowing you to test code that uses Futurum.Core</Description>
+        <PackageProjectUrl>https://www.futurum.dev/projects/dotnet-futurum.html</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/futurum-dev/dotnet.futurum.test</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\assets\dotnet-logo.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\net6.0\Futurum.Test.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\net6.0\Futurum.Test.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="6.3.0" />
+        <PackageReference Include="Futurum.Core" Version="1.0.0" />
+        <PackageReference Include="Moq" Version="4.16.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+    </ItemGroup>
+
+</Project>
