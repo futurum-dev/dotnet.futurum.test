@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A2CA104E
 		release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{48A9AC0D-7FA4-4084-A707-153EF553485E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futurum.Test.Tests", "Futurum.Test.Tests\Futurum.Test.Tests.csproj", "{CA4C29B2-9282-41FB-93E5-7667CD79C027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,5 +29,12 @@ Global
 		{4DF53C8F-6DF9-4BE1-99D1-19D26A65F1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DF53C8F-6DF9-4BE1-99D1-19D26A65F1E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DF53C8F-6DF9-4BE1-99D1-19D26A65F1E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA4C29B2-9282-41FB-93E5-7667CD79C027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA4C29B2-9282-41FB-93E5-7667CD79C027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA4C29B2-9282-41FB-93E5-7667CD79C027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA4C29B2-9282-41FB-93E5-7667CD79C027}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA4C29B2-9282-41FB-93E5-7667CD79C027} = {48A9AC0D-7FA4-4084-A707-153EF553485E}
 	EndGlobalSection
 EndGlobal
