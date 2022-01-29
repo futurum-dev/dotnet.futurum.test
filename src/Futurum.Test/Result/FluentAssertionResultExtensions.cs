@@ -63,7 +63,7 @@ public static class FluentAssertionResultExtensions
     }
 
     /// <summary>
-    /// Specifies that the <see cref="Futurum.Core.Result.Result{T}"/> should be <see cref="Futurum.Core.Result.Result{T}.IsSuccess"/> true with equivalent to  <paramref name="value"/>.
+    /// Specifies that the <see cref="Futurum.Core.Result.Result{T}"/> should be <see cref="Futurum.Core.Result.Result{T}.IsSuccess"/> true with equivalent to <paramref name="value"/>.
     /// </summary>
     public static void ShouldBeSuccessWithValueEquivalentTo<T>(this Result<T> result, T value)
     {
@@ -73,7 +73,7 @@ public static class FluentAssertionResultExtensions
     }
 
     /// <summary>
-    /// Specifies that the <see cref="Futurum.Core.Result.Result{T}"/> should be <see cref="Futurum.Core.Result.Result{T}.IsSuccess"/> true with equivalent to  <paramref name="value"/>.
+    /// Specifies that the <see cref="Futurum.Core.Result.Result{T}"/> should be <see cref="Futurum.Core.Result.Result{T}.IsSuccess"/> true with equivalent to <paramref name="value"/>.
     /// </summary>
     public static void ShouldBeSuccessWithValueEquivalentTo<T, TR>(this Result<T> result, Func<T, TR> selectorFunc, TR value)
     {
@@ -83,7 +83,7 @@ public static class FluentAssertionResultExtensions
     }
 
     /// <summary>
-    /// Specifies that the <see cref="Futurum.Core.Result.Result{T}"/> should be <see cref="Futurum.Core.Result.Result{T}.IsSuccess"/> true with equivalent to  <paramref name="value"/>.
+    /// Specifies that the <see cref="Futurum.Core.Result.Result{T}"/> should be <see cref="Futurum.Core.Result.Result{T}.IsSuccess"/> true with equivalent to <paramref name="value"/>.
     /// </summary>
     public static async Task ShouldBeSuccessWithValueEquivalentToAsync<T, TData>(this Result<T> result, Func<T, IAsyncEnumerable<TData>> selectorFunc, IAsyncEnumerable<TData> value)
     {

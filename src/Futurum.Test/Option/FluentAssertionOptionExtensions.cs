@@ -37,6 +37,26 @@ public static class FluentAssertionOptionExtensions
     }
 
     /// <summary>
+    /// Specifies that the <see cref="Futurum.Core.Option.Option{T}"/> should be <see cref="Futurum.Core.Option.Option{T}.HasValue"/> true with equivalent to <paramref name="value"/>
+    /// </summary>
+    public static void ShouldBeHasValueWithValueEquivalentTo<T>(this Futurum.Core.Option.Option<T> option, T value)
+    {
+        option.HasValue.Should().BeTrue();
+
+        option.Value.Should().BeEquivalentTo(value);
+    }
+
+    /// <summary>
+    /// Specifies that the <see cref="Futurum.Core.Option.Option{T}"/> should be <see cref="Futurum.Core.Option.Option{T}.HasValue"/> true with equivalent to <paramref name="value"/>
+    /// </summary>
+    public static void ShouldBeHasValueWithValueEquivalentTo<T, TR>(this Futurum.Core.Option.Option<T> option, Func<T, TR> selectorFunc, TR value)
+    {
+        option.HasValue.Should().BeTrue();
+
+        selectorFunc(option.Value).Should().BeEquivalentTo(value);
+    }
+
+    /// <summary>
     /// Specifies that the <see cref="Futurum.Core.Option.Option{T}"/> should be <see cref="Futurum.Core.Option.Option{T}.HasNoValue"/> true.
     /// </summary>
     public static void ShouldBeHasNoValue<T>(this Futurum.Core.Option.Option<T> option)
