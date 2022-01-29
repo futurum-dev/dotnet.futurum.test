@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\Futurum.Test\Futurum.Test.csproj" />
+      <ProjectReference Include="..\..\src\Futurum.Test\Futurum.Test.csproj" />
     </ItemGroup>
 
 </Project>
