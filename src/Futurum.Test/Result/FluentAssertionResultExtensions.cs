@@ -111,6 +111,18 @@ public static class FluentAssertionResultExtensions
     }
 
     /// <summary>
+    /// Specifies that the <see cref="Futurum.Core.Result.Result{T}"/> should be <see cref="Futurum.Core.Result.Result{T}.IsSuccess"/> true and <paramref name="valueAssertion"/>.
+    /// </summary>
+    public static void ShouldBeSuccessWithValueAssertion<T>(this Result<T> result, Action<T> valueAssertion)
+    {
+        var errorMessage = result.IsSuccess ? string.Empty : $"Error : '{result.Error.Value.ToErrorString()}'";
+
+        result.IsSuccess.Should().BeTrue(errorMessage);
+
+        valueAssertion(result.Value.Value);
+    }
+
+    /// <summary>
     /// Specifies that the <see cref="Futurum.Core.Result.Result"/> should be <see cref="Futurum.Core.Result.Result.IsFailure"/> true.
     /// </summary>
     public static void ShouldBeFailure(this Core.Result.Result result)
