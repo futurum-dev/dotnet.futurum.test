@@ -227,41 +227,168 @@ public class FluentAssertionResultExtensionsTests
 
     public class ShouldBeSuccessWithValueEquivalentToAsync
     {
-        [Fact]
-        public void Success_matches()
+        public class compare_to_IEnumerable
         {
-            var numbers = Enumerable.Range(0, 10);
+            public class WithoutSelector
+            {
+                [Fact]
+                public void Success_matches()
+                {
+                    var numbers = Enumerable.Range(0, 10);
 
-            var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
+                    var value = AsyncEnumerable(numbers);
 
-            var option = Core.Result.Result.Ok(value);
+                    var option = Core.Result.Result.Ok(value);
 
-            option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(numbers));
+                    option.ShouldBeSuccessWithValueEquivalentToAsync(numbers);
+                }
+
+                [Fact]
+                public void Success_doesnt_match()
+                {
+                    var numbers = Enumerable.Range(0, 10);
+
+                    var value = AsyncEnumerable(numbers);
+
+                    var option = Core.Result.Result.Ok(value);
+
+                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(numbers.Select(x => x * 2));
+
+                    action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
+                }
+
+                [Fact]
+                public void Failure()
+                {
+                    var option = Core.Result.Result.Fail<IAsyncEnumerable<int>>(ERROR_MESSAGE);
+
+                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(Enumerable.Range(0, 10));
+
+                    action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
+                }
+            }
+
+            public class WithSelector
+            {
+                [Fact]
+                public void Success_matches()
+                {
+                    var numbers = Enumerable.Range(0, 10);
+
+                    var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
+
+                    var option = Core.Result.Result.Ok(value);
+
+                    option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, numbers);
+                }
+
+                [Fact]
+                public void Success_doesnt_match()
+                {
+                    var numbers = Enumerable.Range(0, 10);
+
+                    var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
+
+                    var option = Core.Result.Result.Ok(value);
+
+                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, numbers.Select(x => x * 2));
+
+                    action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
+                }
+
+                [Fact]
+                public void Failure()
+                {
+                    var option = Core.Result.Result.Fail<TestAsyncEnumerableClass>(ERROR_MESSAGE);
+
+                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, Enumerable.Range(0, 10));
+
+                    action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
+                }
+            }
         }
 
-        [Fact]
-        public void Success_doesnt_match()
+        public class compare_to_IAsyncEnumerable
         {
-            var numbers = Enumerable.Range(0, 10);
+            public class WithoutSelector
+            {
+                [Fact]
+                public void Success_matches()
+                {
+                    var numbers = Enumerable.Range(0, 10);
 
-            var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
+                    var value = AsyncEnumerable(numbers);
 
-            var option = Core.Result.Result.Ok(value);
+                    var option = Core.Result.Result.Ok(value);
 
-            var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(numbers.Select(x => x * 2)));
+                    option.ShouldBeSuccessWithValueEquivalentToAsync(AsyncEnumerable(numbers));
+                }
 
-            action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
+                [Fact]
+                public void Success_doesnt_match()
+                {
+                    var numbers = Enumerable.Range(0, 10);
+
+                    var value = AsyncEnumerable(numbers);
+
+                    var option = Core.Result.Result.Ok(value);
+
+                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(AsyncEnumerable(numbers.Select(x => x * 2)));
+
+                    action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
+                }
+
+                [Fact]
+                public void Failure()
+                {
+                    var option = Core.Result.Result.Fail<IAsyncEnumerable<int>>(ERROR_MESSAGE);
+
+                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(AsyncEnumerable(Enumerable.Range(0, 10)));
+
+                    action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
+                }
+            }
+
+            public class WithSelector
+            {
+                [Fact]
+                public void Success_matches()
+                {
+                    var numbers = Enumerable.Range(0, 10);
+
+                    var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
+
+                    var option = Core.Result.Result.Ok(value);
+
+                    option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(numbers));
+                }
+
+                [Fact]
+                public void Success_doesnt_match()
+                {
+                    var numbers = Enumerable.Range(0, 10);
+
+                    var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
+
+                    var option = Core.Result.Result.Ok(value);
+
+                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(numbers.Select(x => x * 2)));
+
+                    action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
+                }
+
+                [Fact]
+                public void Failure()
+                {
+                    var option = Core.Result.Result.Fail<TestAsyncEnumerableClass>(ERROR_MESSAGE);
+
+                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(Enumerable.Range(0, 10)));
+
+                    action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
+                }
+            }
         }
 
-        [Fact]
-        public void Failure()
-        {
-            var option = Core.Result.Result.Fail<TestAsyncEnumerableClass>(ERROR_MESSAGE);
-
-            var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(Enumerable.Range(0, 10)));
-
-            action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
-        }
 
         private static async IAsyncEnumerable<int> AsyncEnumerable(IEnumerable<int> numbers)
         {
@@ -300,7 +427,7 @@ public class FluentAssertionResultExtensionsTests
         public void Success_doesnt_match()
         {
             var value = 10;
-            
+
             var option = Core.Result.Result.Ok(value);
 
             var action = () => option.ShouldBeSuccessWithValueAssertion(x => x.Should().NotBe(value));
