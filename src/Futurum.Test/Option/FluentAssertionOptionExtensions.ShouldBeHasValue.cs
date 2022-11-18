@@ -5,7 +5,7 @@ namespace Futurum.Test.Option;
 /// <summary>
 /// Extension methods for <see cref="FluentAssertions"/>, so that it supports <see cref="Futurum.Core.Option.Option{T}"/>
 /// </summary>
-public static class FluentAssertionOptionExtensions
+public static partial class FluentAssertionOptionExtensions
 {
     /// <summary>
     /// Specifies that the <see cref="Futurum.Core.Option.Option{T}"/> should be <see cref="Futurum.Core.Option.Option{T}.HasValue"/> true.
@@ -64,14 +64,5 @@ public static class FluentAssertionOptionExtensions
         option.HasValue.Should().BeTrue();
 
         valueAssertion(option.Value);
-    }
-
-    /// <summary>
-    /// Specifies that the <see cref="Futurum.Core.Option.Option{T}"/> should be <see cref="Futurum.Core.Option.Option{T}.HasNoValue"/> true.
-    /// </summary>
-    public static void ShouldBeHasNoValue<T>(this Futurum.Core.Option.Option<T> option)
-    {
-        option.HasNoValue.Should().BeTrue();
-        option.HasValue.Should().BeFalse();
     }
 }

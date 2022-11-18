@@ -1,14 +1,13 @@
 using FluentAssertions;
 
 using Futurum.Core.Option;
-using Futurum.Core.Result;
 using Futurum.Test.Result;
 
 using Xunit;
 
-namespace Futurum.Test.Tests.Option;
+namespace Futurum.Test.Tests.Result;
 
-public class FluentAssertionResultExtensionsTests
+public class FluentAssertionResultExtensionsShouldBeSuccessTests
 {
     private const string ERROR_MESSAGE = "Error-Message";
 
@@ -443,156 +442,6 @@ public class FluentAssertionResultExtensionsTests
             var action = () => option.ShouldBeSuccessWithValueAssertion(x => x.Should().Be(10));
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
-        }
-    }
-
-    public class ShouldBeFailure
-    {
-        [Fact]
-        public void Success()
-        {
-            var option = Core.Result.Result.Ok();
-
-            var action = () => option.ShouldBeFailure();
-
-            action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsFailure to be true, but found False.");
-        }
-
-        [Fact]
-        public void Failure()
-        {
-            var option = Core.Result.Result.Fail(ERROR_MESSAGE);
-
-            option.ShouldBeFailure();
-        }
-    }
-
-    public class ShouldBeFailureWithError
-    {
-        [Fact]
-        public void Success()
-        {
-            var option = Core.Result.Result.Ok();
-
-            var action = () => option.ShouldBeFailureWithError(ERROR_MESSAGE);
-
-            action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsFailure to be true, but found False.");
-        }
-
-        [Fact]
-        public void Failure()
-        {
-            var option = Core.Result.Result.Fail(ERROR_MESSAGE);
-
-            option.ShouldBeFailureWithError(ERROR_MESSAGE);
-        }
-    }
-
-    public class ShouldBeFailure_Generic
-    {
-        [Fact]
-        public void Success()
-        {
-            var option = Core.Result.Result.Ok(10);
-
-            var action = () => option.ShouldBeFailure();
-
-            action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsFailure to be true, but found False.");
-        }
-
-        [Fact]
-        public void Failure()
-        {
-            var option = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
-
-            option.ShouldBeFailure();
-        }
-    }
-
-    public class ShouldBeFailureWithError_Generic
-    {
-        [Fact]
-        public void Success()
-        {
-            var option = Core.Result.Result.Ok(10);
-
-            var action = () => option.ShouldBeFailureWithError(ERROR_MESSAGE);
-
-            action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsFailure to be true, but found False.");
-        }
-
-        [Fact]
-        public void Failure()
-        {
-            var option = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
-
-            option.ShouldBeFailureWithError(ERROR_MESSAGE);
-        }
-    }
-
-    public class ShouldBeFailureWithErrorContaining
-    {
-        [Fact]
-        public void Success()
-        {
-            var option = Core.Result.Result.Ok();
-
-            var action = () => option.ShouldBeFailureWithErrorContaining(ERROR_MESSAGE);
-
-            action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsFailure to be true, but found False.");
-        }
-
-        [Fact]
-        public void Failure()
-        {
-            var option = Core.Result.Result.Fail(ResultErrorCompositeExtensions.ToResultError(ERROR_MESSAGE.ToResultError(), ERROR_MESSAGE.ToResultError()));
-
-            option.ShouldBeFailureWithErrorContaining(ERROR_MESSAGE);
-        }
-    }
-
-    public class ShouldBeFailureWithErrorContaining_Generic
-    {
-        [Fact]
-        public void Success()
-        {
-            var option = Core.Result.Result.Ok(10);
-
-            var action = () => option.ShouldBeFailureWithErrorContaining(ERROR_MESSAGE);
-
-            action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsFailure to be true, but found False.");
-        }
-
-        [Fact]
-        public void Failure()
-        {
-            var option = Core.Result.Result.Fail<int>(ResultErrorCompositeExtensions.ToResultError(ERROR_MESSAGE.ToResultError(), ERROR_MESSAGE.ToResultError()));
-
-            option.ShouldBeFailureWithErrorContaining(ERROR_MESSAGE);
-        }
-    }
-
-    public class ShouldBeError
-    {
-        [Fact]
-        public void success()
-        {
-            var resultError = ERROR_MESSAGE.ToResultError();
-
-            resultError.ShouldBeError(ERROR_MESSAGE);
-        }
-
-        [Fact]
-        public void failure()
-        {
-            var incorrectErrorMessage = "test";
-
-            var resultError = ERROR_MESSAGE.ToResultError();
-
-            var action = () => resultError.ShouldBeError(incorrectErrorMessage);
-
-            action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should()
-                  .Contain("Expected error.ToErrorString() to be \"test\" with a length of 4, but \"Error-Message\" has a length of 13, differs near \"Err\" (index 0).");
         }
     }
 

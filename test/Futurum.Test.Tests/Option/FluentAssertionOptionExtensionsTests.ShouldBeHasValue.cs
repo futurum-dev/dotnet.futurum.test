@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Futurum.Test.Tests.Option;
 
-public class FluentAssertionOptionExtensionsTests
+public class FluentAssertionOptionExtensionsShouldBeHasValueTests
 {
     public class ShouldBeHasValue
     {
@@ -202,14 +202,6 @@ public class FluentAssertionOptionExtensionsTests
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected option.HasValue to be true, but found False.");
         }
-    }
-
-    [Fact]
-    public void ShouldBeHasNoValue()
-    {
-        var option = Core.Option.Option.None<int>();
-
-        option.ShouldBeHasNoValue();
     }
 
     private class TestClass
