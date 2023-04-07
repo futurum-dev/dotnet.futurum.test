@@ -16,17 +16,17 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         [Fact]
         public void Success()
         {
-            var option = Core.Result.Result.Ok();
+            var result = Core.Result.Result.Ok();
 
-            option.ShouldBeSuccess();
+            result.ShouldBeSuccess();
         }
 
         [Fact]
         public void Failure()
         {
-            var option = Core.Result.Result.Fail(ERROR_MESSAGE);
+            var result = Core.Result.Result.Fail(ERROR_MESSAGE);
 
-            var action = () => option.ShouldBeSuccess();
+            var action = () => result.ShouldBeSuccess();
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
         }
@@ -37,17 +37,17 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         [Fact]
         public void Success()
         {
-            var option = Core.Result.Result.Ok(10);
+            var result = Core.Result.Result.Ok(10);
 
-            option.ShouldBeSuccess();
+            result.ShouldBeSuccess();
         }
 
         [Fact]
         public void Failure()
         {
-            var option = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
+            var result = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
 
-            var action = () => option.ShouldBeSuccess();
+            var action = () => result.ShouldBeSuccess();
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
         }
@@ -60,17 +60,17 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = 10;
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            option.ShouldBeSuccessWithValue(value);
+            result.ShouldBeSuccessWithValue(value);
         }
 
         [Fact]
         public void Success_doesnt_match()
         {
-            var option = Core.Result.Result.Ok(10);
+            var result = Core.Result.Result.Ok(10);
 
-            var action = () => option.ShouldBeSuccessWithValue(20);
+            var action = () => result.ShouldBeSuccessWithValue(20);
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.Value.Value to be 20, but found 10.");
         }
@@ -78,9 +78,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         [Fact]
         public void Failure()
         {
-            var option = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
+            var result = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
 
-            var action = () => option.ShouldBeSuccessWithValue(10);
+            var action = () => result.ShouldBeSuccessWithValue(10);
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
         }
@@ -93,17 +93,17 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = 10;
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            option.ShouldBeSuccessWithValue(value.ToOption());
+            result.ShouldBeSuccessWithValue(value.ToOption());
         }
 
         [Fact]
         public void Success_doesnt_match()
         {
-            var option = Core.Result.Result.Ok(10);
+            var result = Core.Result.Result.Ok(10);
 
-            var action = () => option.ShouldBeSuccessWithValue(20.ToOption());
+            var action = () => result.ShouldBeSuccessWithValue(20.ToOption());
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.Value.Value to be 20, but found 10.");
         }
@@ -111,9 +111,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         [Fact]
         public void Failure()
         {
-            var option = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
+            var result = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
 
-            var action = () => option.ShouldBeSuccessWithValue(10);
+            var action = () => result.ShouldBeSuccessWithValue(10);
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
         }
@@ -126,9 +126,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = new TestClass(10);
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            option.ShouldBeSuccessWithValue(x => x.Number, value.Number);
+            result.ShouldBeSuccessWithValue(x => x.Number, value.Number);
         }
 
         [Fact]
@@ -136,9 +136,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = new TestClass(10);
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            var action = () => option.ShouldBeSuccessWithValue(x => x.Number, 20);
+            var action = () => result.ShouldBeSuccessWithValue(x => x.Number, 20);
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected selectorFunc(result.Value.Value) to be 20, but found 10.");
         }
@@ -146,9 +146,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         [Fact]
         public void Failure()
         {
-            var option = Core.Result.Result.Fail<TestClass>(ERROR_MESSAGE);
+            var result = Core.Result.Result.Fail<TestClass>(ERROR_MESSAGE);
 
-            var action = () => option.ShouldBeSuccessWithValue(x => x.Number, 20);
+            var action = () => result.ShouldBeSuccessWithValue(x => x.Number, 20);
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
         }
@@ -161,9 +161,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = new TestClass(10);
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            option.ShouldBeSuccessWithValueEquivalentTo(new TestClass(10));
+            result.ShouldBeSuccessWithValueEquivalentTo(new TestClass(10));
         }
 
         [Fact]
@@ -171,9 +171,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = new TestClass(10);
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            var action = () => option.ShouldBeSuccessWithValueEquivalentTo(new TestClass(20));
+            var action = () => result.ShouldBeSuccessWithValueEquivalentTo(new TestClass(20));
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected property result.Value.Value.Number to be 20, but found 10.");
         }
@@ -181,9 +181,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         [Fact]
         public void Failure()
         {
-            var option = Core.Result.Result.Fail<TestClass>(ERROR_MESSAGE);
+            var result = Core.Result.Result.Fail<TestClass>(ERROR_MESSAGE);
 
-            var action = () => option.ShouldBeSuccessWithValueEquivalentTo(new TestClass(10));
+            var action = () => result.ShouldBeSuccessWithValueEquivalentTo(new TestClass(10));
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
         }
@@ -196,9 +196,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = new TestChildClass(10);
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            option.ShouldBeSuccessWithValueEquivalentTo(x => x.Child, new TestChildClass.ChildClass(10));
+            result.ShouldBeSuccessWithValueEquivalentTo(x => x.Child, new TestChildClass.ChildClass(10));
         }
 
         [Fact]
@@ -206,9 +206,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = new TestChildClass(10);
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            var action = () => option.ShouldBeSuccessWithValueEquivalentTo(x => x.Child, new TestChildClass.ChildClass(20));
+            var action = () => result.ShouldBeSuccessWithValueEquivalentTo(x => x.Child, new TestChildClass.ChildClass(20));
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
         }
@@ -216,9 +216,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         [Fact]
         public void Failure()
         {
-            var option = Core.Result.Result.Fail<TestChildClass>(ERROR_MESSAGE);
+            var result = Core.Result.Result.Fail<TestChildClass>(ERROR_MESSAGE);
 
-            var action = () => option.ShouldBeSuccessWithValueEquivalentTo(x => x.Child, new TestChildClass.ChildClass(10));
+            var action = () => result.ShouldBeSuccessWithValueEquivalentTo(x => x.Child, new TestChildClass.ChildClass(10));
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
         }
@@ -237,9 +237,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
 
                     var value = AsyncEnumerable(numbers);
 
-                    var option = Core.Result.Result.Ok(value);
+                    var result = Core.Result.Result.Ok(value);
 
-                    option.ShouldBeSuccessWithValueEquivalentToAsync(numbers);
+                    result.ShouldBeSuccessWithValueEquivalentToAsync(numbers);
                 }
 
                 [Fact]
@@ -249,9 +249,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
 
                     var value = AsyncEnumerable(numbers);
 
-                    var option = Core.Result.Result.Ok(value);
+                    var result = Core.Result.Result.Ok(value);
 
-                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(numbers.Select(x => x * 2));
+                    var action = () => result.ShouldBeSuccessWithValueEquivalentToAsync(numbers.Select(x => x * 2));
 
                     action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
                 }
@@ -259,9 +259,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
                 [Fact]
                 public void Failure()
                 {
-                    var option = Core.Result.Result.Fail<IAsyncEnumerable<int>>(ERROR_MESSAGE);
+                    var result = Core.Result.Result.Fail<IAsyncEnumerable<int>>(ERROR_MESSAGE);
 
-                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(Enumerable.Range(0, 10));
+                    var action = () => result.ShouldBeSuccessWithValueEquivalentToAsync(Enumerable.Range(0, 10));
 
                     action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
                 }
@@ -276,9 +276,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
 
                     var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
 
-                    var option = Core.Result.Result.Ok(value);
+                    var result = Core.Result.Result.Ok(value);
 
-                    option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, numbers);
+                    result.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, numbers);
                 }
 
                 [Fact]
@@ -288,9 +288,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
 
                     var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
 
-                    var option = Core.Result.Result.Ok(value);
+                    var result = Core.Result.Result.Ok(value);
 
-                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, numbers.Select(x => x * 2));
+                    var action = () => result.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, numbers.Select(x => x * 2));
 
                     action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
                 }
@@ -298,9 +298,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
                 [Fact]
                 public void Failure()
                 {
-                    var option = Core.Result.Result.Fail<TestAsyncEnumerableClass>(ERROR_MESSAGE);
+                    var result = Core.Result.Result.Fail<TestAsyncEnumerableClass>(ERROR_MESSAGE);
 
-                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, Enumerable.Range(0, 10));
+                    var action = () => result.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, Enumerable.Range(0, 10));
 
                     action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
                 }
@@ -318,9 +318,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
 
                     var value = AsyncEnumerable(numbers);
 
-                    var option = Core.Result.Result.Ok(value);
+                    var result = Core.Result.Result.Ok(value);
 
-                    option.ShouldBeSuccessWithValueEquivalentToAsync(AsyncEnumerable(numbers));
+                    result.ShouldBeSuccessWithValueEquivalentToAsync(AsyncEnumerable(numbers));
                 }
 
                 [Fact]
@@ -330,9 +330,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
 
                     var value = AsyncEnumerable(numbers);
 
-                    var option = Core.Result.Result.Ok(value);
+                    var result = Core.Result.Result.Ok(value);
 
-                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(AsyncEnumerable(numbers.Select(x => x * 2)));
+                    var action = () => result.ShouldBeSuccessWithValueEquivalentToAsync(AsyncEnumerable(numbers.Select(x => x * 2)));
 
                     action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
                 }
@@ -340,9 +340,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
                 [Fact]
                 public void Failure()
                 {
-                    var option = Core.Result.Result.Fail<IAsyncEnumerable<int>>(ERROR_MESSAGE);
+                    var result = Core.Result.Result.Fail<IAsyncEnumerable<int>>(ERROR_MESSAGE);
 
-                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(AsyncEnumerable(Enumerable.Range(0, 10)));
+                    var action = () => result.ShouldBeSuccessWithValueEquivalentToAsync(AsyncEnumerable(Enumerable.Range(0, 10)));
 
                     action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
                 }
@@ -357,9 +357,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
 
                     var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
 
-                    var option = Core.Result.Result.Ok(value);
+                    var result = Core.Result.Result.Ok(value);
 
-                    option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(numbers));
+                    result.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(numbers));
                 }
 
                 [Fact]
@@ -369,9 +369,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
 
                     var value = new TestAsyncEnumerableClass(AsyncEnumerable(numbers));
 
-                    var option = Core.Result.Result.Ok(value);
+                    var result = Core.Result.Result.Ok(value);
 
-                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(numbers.Select(x => x * 2)));
+                    var action = () => result.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(numbers.Select(x => x * 2)));
 
                     action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected property selectorFunc(result.Value.Value).Number to be 20, but found 10.");
                 }
@@ -379,9 +379,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
                 [Fact]
                 public void Failure()
                 {
-                    var option = Core.Result.Result.Fail<TestAsyncEnumerableClass>(ERROR_MESSAGE);
+                    var result = Core.Result.Result.Fail<TestAsyncEnumerableClass>(ERROR_MESSAGE);
 
-                    var action = () => option.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(Enumerable.Range(0, 10)));
+                    var action = () => result.ShouldBeSuccessWithValueEquivalentToAsync(x => x.Numbers, AsyncEnumerable(Enumerable.Range(0, 10)));
 
                     action.Should().ThrowAsync<Xunit.Sdk.XunitException>().WithMessage("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
                 }
@@ -417,9 +417,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = 10;
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            option.ShouldBeSuccessWithValueAssertion(x => x.Should().Be(value));
+            result.ShouldBeSuccessWithValueAssertion(x => x.Should().Be(value));
         }
 
         [Fact]
@@ -427,9 +427,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         {
             var value = 10;
 
-            var option = Core.Result.Result.Ok(value);
+            var result = Core.Result.Result.Ok(value);
 
-            var action = () => option.ShouldBeSuccessWithValueAssertion(x => x.Should().NotBe(value));
+            var action = () => result.ShouldBeSuccessWithValueAssertion(x => x.Should().NotBe(value));
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Did not expect x to be 10.");
         }
@@ -437,9 +437,9 @@ public class FluentAssertionResultExtensionsShouldBeSuccessTests
         [Fact]
         public void Failure()
         {
-            var option = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
+            var result = Core.Result.Result.Fail<int>(ERROR_MESSAGE);
 
-            var action = () => option.ShouldBeSuccessWithValueAssertion(x => x.Should().Be(10));
+            var action = () => result.ShouldBeSuccessWithValueAssertion(x => x.Should().Be(10));
 
             action.Should().Throw<Xunit.Sdk.XunitException>().Which.Message.Should().Contain("Expected result.IsSuccess to be true because Error : 'Error-Message', but found False.");
         }
